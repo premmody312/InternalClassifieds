@@ -1,0 +1,75 @@
+<div class="card mb-3 ">
+
+    <div class="row no-gutters" style="min-height: 200px">
+        <div class="col-md-4 card_img">
+<!--             <h2>listing in Card {{listing.id}}</h2>
+ -->            <a class="card_listing" href="{% url 'listings' id_listing=listing.id %}">
+                <img class="ls_foto" src="{{ listing.url_img }}" style="position: absolute;top: 0;
+  bottom: 0;  left: 0;  right: 0;  margin: auto;" alt="">
+            </a>
+        </div>
+        <div class="col-md-8">
+            <div class="card-header justify-content-between">
+                Author: {{ listing.author.username }}
+  <!--               <div class="col">
+                    {% if user.is_authenticated %}
+                        {% if listing in ls %}
+                            {% if active == 'watchlist' %}
+                                <form action="{% url 'watchlistWatchlist' id_listing=listing.id %}"
+                                      class="watchList" method="post">
+                                    {% csrf_token %}
+                                    <button class="badge badge-danger btn_watchlist" type="submit">Remove from Watchlist</button>
+                                </form>
+                            {% else %}
+                                <form action="{% url 'watchlistIndex' id_listing=listing.id %}"
+                                      class="watchList" method="post">
+                                    {% csrf_token %}
+                                    <button class="badge badge-success btn_watchlist" type="submit">Watchlist</button>
+                                </form>
+                            {% endif %}
+                        {% else %}
+                            {% if active == 'watchlist' %}
+                                <form action="{% url 'watchlistWatchlist' id_listing=listing.id %}" class="watchList"
+                                      method="post">
+                                    {% csrf_token %}
+                                    <button class="badge badge-info btn_watchlist" type="submit">Add to Watchlist</button>
+                                </form>
+                            {% else %}
+                                <form action="{% url 'watchlistIndex' id_listing=listing.id %}" class="watchList" method="post">
+                                    {% csrf_token %}
+                                    <button class="badge badge-info btn_watchlist" type="submit">Add to Watchlist</button>
+                                </form>
+                            {% endif %}
+                        {% endif %}
+                    {% endif %}
+                </div> -->
+                {% if listing.open %}
+                    <span class="badge badge-success">Open</span>
+                {% else %}
+                    <span class="badge badge-warning">Closed</span>
+                {% endif %}
+
+            </div>
+            <div class="card-body">
+                <a class="card_listing" href="{% url 'listings' id_listing=listing.id %}">
+                    <h5 class="card-title">{{ listing.title }}</h5>
+                </a>
+                <p class="card-text">{{ listing.text_base|truncatewords:15 }}</p>
+                <div style="display:flex; justify-content: space-between">
+                    <p class="card-text">Starting price: ₹{{ listing.start_bid }}</p>
+                    <p class="card-text"><small class="text-muted">Created {{ listing.create_date }}</small>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card-footer">
+        Categories:
+        {% for category in listing.category.all %}
+            <a href="{% url 'categories' title_cat=category.cat %}">{{ category.cat }}</a>
+        {% endfor %}
+        <br>
+        Author Contact Details: {{ listing.author.email }}
+    </div>
+</div>

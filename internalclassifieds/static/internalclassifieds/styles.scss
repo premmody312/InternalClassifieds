@@ -1,0 +1,97 @@
+$primary-color: #000;;
+$hover-color: red;;
+
+
+body {
+    
+}
+form {
+    text-align: center;
+}
+a {
+    text-decoration: none;
+}
+a:hover {
+    text-decoration: none;
+    color: $hover-color
+}
+.title_page {
+    text-align: center;
+    margin-bottom: 35px;
+}
+.login_user {
+    text-align: right;
+    min-height: 50px
+}
+.center_form {
+    margin: 0 auto;
+    text-align: center;
+}
+.list-group {
+    margin: 0 auto;
+}
+.card-header {
+    display: flex;
+    line-height: 1;
+}
+.page-link {
+    color: $primary-color;
+}
+.form-group {
+    text-align: center;
+    margin: 10px auto;
+}
+.foto_listing {
+    width: 500px;
+    display: block;
+    margin: 20px auto;
+}
+.listing_footer {
+    margin: 20px auto;
+    height: 50px;
+}
+.text_listing {
+    margin: 20px 0;
+    text-align: center;
+}
+.watchList {
+    text-align: right;
+}
+.number_bets {
+    margin: 5px auto;
+    text-align: center;
+}
+.bet {
+    margin: 5px auto;
+}
+.btn_watchlist {
+    border: hidden;
+}
+.text_start_price {
+    text-align: left;
+}
+.text_bet {
+    text-align: center;
+}
+.text_max_price {
+    text-align: right;
+}
+.addComment {
+    margin: 5px auto;
+}
+.card_comment, .form_comment {
+    margin: 10px auto;
+    padding: 0;
+}
+.card_listing {
+    color: $primary-color;
+}
+.ls_foto {
+    max-height: 200px;
+    display: block;
+    margin: 0 auto;
+}
+.card_img {
+    border-right: 1px solid rgba(0,0,0,.125);
+}
+

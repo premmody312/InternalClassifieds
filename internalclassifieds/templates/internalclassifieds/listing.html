@@ -1,0 +1,254 @@
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700;800&display=swap');
+
+    .card-wrapper{
+        max-width: 1100px;
+        margin: 0 auto;
+    }
+
+    img{
+        width: 50%;
+        display: block;
+    }
+
+    .product-content{
+        padding: 2rem 1rem;
+    }
+
+    .product-title{
+        font-size: 2.5rem;
+        text-transform: capitalize;
+        font-weight: 700;
+        position: relative;
+        color: #12263a;
+        margin: 1rem 0;
+    }
+
+    .product-detail h2{
+        text-transform: capitalize;
+        color: #12263a;
+        padding-bottom: 0.6rem;
+    }
+
+    .product-detail p{
+        font-size: 0.9rem;
+        padding: 0.3rem;
+        opacity: 0.8;
+    }
+
+    .product-detail ul{
+        margin: 1rem 0;
+        font-size: 0.9rem;
+    }
+
+    .product-detail ul li{
+        margin: 0;
+        list-style: none;
+        padding-left: 1.7rem;
+        margin: 0.4rem 0;
+        font-weight: 600;
+        opacity: 0.9;
+    }
+
+    .product-detail ul li span{
+        font-weight: 400;
+    }
+
+    @media screen and (min-width: 992px){
+    .card{
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-gap: 1.5rem;
+        padding-left: 25px;
+        padding-right: 25px;
+        padding-top: 25px;
+    }
+    .card-wrapper{
+        justify-content: center;
+        align-items: center;
+    }
+    .product-imgs{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+    .product-content{
+        padding-top: 0;
+    }
+}
+</style>
+
+{% extends "internalclassifieds/layout.html" %}
+
+{% block title %}
+    Postings
+{% endblock %}
+
+{% block body %}
+
+    <br>    
+    
+
+    <div class = "card-wrapper">
+
+    {% if listing.author == user and user.is_authenticated and listing.open %}
+        {{ checkUserCreate }}
+        <div class="listing_footer">
+            <form action="{% url 'closeAuction' id_listing=listing.id %}" method="post">
+                {% csrf_token %}
+                <button class="btn btn-danger" type="submit" style="float: right;">Close Auction</button>
+            </form>
+        </div>
+    {% elif user.is_authenticated and not listing.open %}
+        <div class="listing_footer">
+            {% if listing.win.id == user.id %}
+                <div class="alert alert-success" style="text-align: center" role="alert">
+                    Auction closed. You win!
+                </div>
+            {% else %}
+                <div class="alert alert-success" style="text-align: center" role="alert">
+                    Auction closed.
+                </div>
+            {% endif %}
+        </div>
+    {% endif %}
+
+    <div class = "card">
+    <div class="row">
+        <div class="col">{% if listing.open %}
+            <span class="badge badge-success">Open</span>
+        {% else %}
+            <span class="badge badge-warning">Close</span>
+        {% endif %}</div>
+        {% if user.is_authenticated %}
+            <div class="col">
+                {% if del %}
+                    <form action="{% url 'watchlistListing' id_listing=listing.id %}" class="watchList" method="post">
+                        {% csrf_token %}
+                        <button class="badge badge-danger btn_watchlist" type="submit">Remove from Watchlist</button>
+                    </form>
+                {% else %}
+                    <form action="{% url 'watchlistListing' id_listing=listing.id %}" class="watchList" method="post">
+                        {% csrf_token %}
+                        <button class="badge badge-info btn_watchlist" type="submit">Add to Watchlist</button>
+                    </form>
+                {% endif %}
+            </div>
+        {% endif %}
+    </div>
+
+    <br>
+       
+    <div class="row">
+            <!-- card left -->
+        <div class="col">
+        <div class = "product-imgs">
+            <img class="foto_listing" src="{{ listing.url_img }}" alt="" width="50%" height="50%">
+        </div>
+        </div>
+        <!-- card right -->
+        <div class="col">
+        <div class = "product-content">
+          <h2 class = "product-title">{{ listing.title }}</h2>    
+          <div class = "product-detail">
+            {{ listing.text_base|linebreaksbr }}
+          </div>
+        </div>
+        </div>
+    </div>
+
+    <hr>
+    <div class="row">
+        <div class="col text_start_price">
+            <strong>Start price: ₹{{ listing.start_bid }}</strong>
+        </div>
+        <div class="col text_bet">
+            {% if user.is_authenticated %}
+                <strong>Number of bets:</strong> {{ countListBet }}
+            {% endif %}
+        </div>
+        <div class="col text_max_price">
+            {% if countListBet > 0 %}
+                <strong>Max bet: ₹{{ listing.max_bet }}</strong>
+            {% endif %}
+
+            {% if checkBetUser|length == 0 and user.is_authenticated and listing.author.id != user.id %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ message.extra_tags }}" role="alert">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+                <form action="{% url 'addBet' id_listing=listing.id %}" method="post" style="float: right" >
+                    {% csrf_token %}
+                    <span class="row " >{{ formBet }}
+                    <button class="btn btn-primary bet" type="submit" style="background-color: #00004d; color: #fff;">Quote</button></span>
+                </form>
+            {% endif %}
+        </div>
+    </div>
+    <hr>
+    <div>
+        <strong>Categories:</strong>
+        {% for category in listing.category.all %}
+            <u><a href="{% url 'categories' title_cat=category.cat %}" style="color: #004466">{{ category.cat }}</a></u>
+        {% endfor %}
+    </div>
+    <hr>
+    <div>
+        <strong>Listed by:</strong> {{ listing.author.username }}
+    </div>
+    <br>
+
+    
+
+    </div>
+</div>
+<br>
+{% if listing.is_comments_enabled %}
+<div class = "card-wrapper">
+    <div class="card">
+    
+    <h2><b> Have a question? </b></h2>
+    <h5> Find answers in product info, Q&As, reviews </h5>
+
+    {% if user.is_authenticated and listing.open %}
+        <form action="{% url 'addComment' id_listing=listing.id %}" class="form_comment col-12" method="post" style="margin-bottom: 20px">
+            {% csrf_token %}
+            {{ form }}
+            <br>
+            <button class="btn btn-primary" type="submit" style="background-color: #00004d; color: #fff">Add Comment</button>
+        </form>
+
+    </div>
+</div>
+   
+    {% endif %}
+    {% for comment in listComments %}
+    <div class="row" style="margin-top: 20px">
+        <div class="card col-4 card_comment">
+            <div class="card-header">
+                Comment by: {{ comment.id_user.username }}
+            </div>
+            <div class="card-body">
+                <blockquote class="blockquote mb-0">
+                    <p>{{ comment.text }}</p>
+                    <footer class="blockquote-footer"><cite title="Source Title">{{ comment.create_date }}</cite></footer>
+                </blockquote>
+            </div>
+        </div>
+        <div class="card col-4 card_comment" style="border-color: #">
+            <div class="card-header" style="background-color: #f0ea3c">
+                Smart Bot Analysis
+            </div>
+            <div class="card-body">
+                <blockquote class="blockquote mb-0">
+                    <p>{{ comment.senttext }} Feedback</p>
+                </blockquote>
+            </div>
+        </div>
+        </div>
+    {% endfor %}
+    <br>
+
+{% endif %}
+    {% endblock %}

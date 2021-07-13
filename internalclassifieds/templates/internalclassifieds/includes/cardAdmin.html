@@ -1,0 +1,66 @@
+<div class="card mb-3 ">
+
+    <div class="row no-gutters" style="min-height: 200px">
+        <div class="col-md-4 card_img">
+<!--             <h2>listing in CardAdmin {{listing}}</h2>
+ -->            <a class="card_listing" href="{% url 'listings' id_listing=listing.id %}">
+                <img class="ls_foto" src="{{ listing.url_img }}" style="position: absolute;top: 0;
+  bottom: 0;  left: 0;  right: 0;  margin: auto;" alt="">
+            </a>
+        </div>
+        <div class="col-md-8">
+            <div class="card-header justify-content-between">
+                Author: {{ listing.author.username }}
+                <div class="col">
+                    {% if user.is_authenticated %}
+                        {% if listing in ls %}
+                            {% if active == 'admin_decision' %}
+                                <form action="{% url 'admin_decision_watchlist' id_listing=listing.id %}"
+                                      class="watchList" method="post">
+                                    {% csrf_token %}
+                                    <button class="badge badge-success btn_watchlist btn-success" type="submit">Accept</button>
+                                </form>
+                                <form action="{% url 'admin_decision_index' id_listing=listing.id %}"
+                                      class="watchList" method="post">
+                                    {% csrf_token %}
+                                    <button class="badge badge-error btn_watchlist btn-danger" type="submit">Reject</button>
+                                </form>
+
+
+
+<!--                             {% else %}
+                                <form action="{% url 'admin_decision_index' id_listing=listing.id %}"
+                                      class="watchList" method="post">
+                                    {% csrf_token %}
+                                    <button class="badge badge-success btn_watchlist btn-success" type="submit">Accept</button>
+                                    <button class="badge badge-error btn_watchlist btn-danger" type="submit">Reject</button>
+                                </form>
+                            {% endif %} -->
+   
+                        {% endif %}
+                    {% endif %}
+                </div>
+
+
+            </div>
+            <div class="card-body">
+                <a class="card_listing" href="{% url 'listings' id_listing=listing.id %}">
+                    <h5 class="card-title">{{ listing.title }}</h5>
+                </a>
+                <p class="card-text">{{ listing.text_base|truncatewords:15 }}</p>
+                <div style="display:flex; justify-content: space-between">
+                    <p class="card-text">Starting price: ₹{{ listing.start_bid }}</p>
+                    <p class="card-text"><small class="text-muted">Created {{ listing.create_date }}</small>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card-footer">
+        Categories:
+        {% for category in listing.category.all %}
+            <a href="{% url 'categories' title_cat=category.cat %}">{{ category.cat }}</a>
+        {% endfor %}
+    </div>
+</div>

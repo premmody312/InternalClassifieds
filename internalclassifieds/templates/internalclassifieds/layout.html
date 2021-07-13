@@ -1,0 +1,220 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>{% block title %}Internal Classifieds{% endblock %}</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link href="http://fonts.cdnfonts.com/css/helvetica-2" rel="stylesheet">
+    <link href="{% static 'internalclassifieds/styles.css' %}" rel="stylesheet">
+    <link rel="shortcut icon" type="image/png" href="{% static 'internalclassifieds/favicon.jpg' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<style>
+.dropdown {
+  float: right;
+  overflow: hidden;
+}
+
+.dropdown .dropbtn {
+  font-size: 16px;  
+  border: none;
+  outline: none;
+  padding: 14px 16px;
+  background-color: #004466;
+  font-family: inherit;
+  margin: 0;
+  margin-top: 5px
+}
+
+.dropdown:hover .dropbtn, .dropbtn:focus {
+  background-color: #004466;
+  color: white;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  top: 52px;
+  right: 0px;
+
+  background-color: #f9f9f9;
+  min-width: 180px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+  margin-right: 5px;
+}
+
+.dropdown-content a {
+  float: none;
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+}
+
+.dropdown-content a:hover {
+  background-color: #004466;
+}
+
+.show {
+  display: block;
+}
+
+#searchBtn:hover{
+  background: #fff;
+  color:#004466;
+  border: 1px solid #004466;  
+}
+
+#searchBtn{
+  background: #004466;
+  color: #fff;
+  border: 1px solid #fff;
+  font-size:16px;
+}
+
+
+</style>
+</head>
+
+<body>
+<div class="container-fluid" style="background:#004466">
+    <!-- <div class="login_user">
+        {% if user.is_authenticated %}
+            Signed in as <strong>{{ user.username }}</strong>.
+        {% else %}
+            Not signed in.
+        {% endif %}
+    </div> -->
+    
+    <ul class="nav nav-pills nav-justified-left" >
+
+        <li class="nav-item" >
+          <a class="nav-link {% if active == 'index' %} active {% endif %}" href="{% url 'index' %}" style="text-align: left"><i class='  far fa-building' style="color: #fff"></i></a>
+        </li>
+        <li class="nav-item" >
+            <a class="nav-link {% if active == 'index' %} active {% endif %}" href="{% url 'index' %}" style="text-align: left">Internal Classifieds</a>
+        </li>
+<!--         <li class="nav-item" >
+            <a class="nav-link {% if active == 'index' %} active {% endif %}" href="{% url 'index' %}" style="text-align: left">Product Catalog</a>
+        </li> -->
+        <li class="nav-item">
+            <a  class="nav-link {% if active == 'allCategories' %} active {% endif %}" href="{% url 'allCategories' %}" style="text-align: left">Categories</a>
+        </li>
+        
+        <form method="get" action="/search" class="form-inline my-2 my-lg-0 nav-item ml-auto">
+          <input class="form-control mr-sm-2" type="search"  style="width: 600px;font-size:16px;
+" placeholder="Enter you search query here" aria-label="Search" name="query" id="search">
+          <button class="btn" style="width: auto" id="searchBtn" type="submit">Search</button>
+        </form>
+        
+        {% if user.is_authenticated %}
+            
+
+            <div class="ml-auto" style="padding-top: 10px;">
+            <button class="dropbtn" onclick="myFunction()" style="background-color: #004466; color: white;border: none">My Account <span style='font-size:17px;'>&#9660;</span></button>
+           </div>
+            <div class="dropdown-content" id="myDropdown">
+            <li class="nav-item login_user"  >
+                {% if user.is_authenticated%}
+                  <p style="text-align: left; padding-left: 20px;padding-top: 10px">
+                    Hello, <strong>{{ user.first_name }}</strong>
+                  </p>
+                {% endif %}
+            </li>
+              <li class="nav-item">
+                <a  class="nav-link {% if active == 'create' %} active {% endif %}" href=
+                        "{% url 'create' %}" style="text-align: left">Create Posting</a>
+              </li>
+              {% if user.is_authenticated  and user.is_superuser%}
+              <li class="nav-item login_user"  >
+                      <a  class="nav-link {% if active == 'admin_decision' %} active {% endif %}" href=
+                        "{% url 'admin_decision' %}">Approvals (Pending)</a>
+              </li>
+            {% endif %}
+            {% if user.is_authenticated  and user.is_superuser%}
+            <li class="nav-item login_user"  >
+                      <a  class="nav-link {% if active == 'admin_delete' %} active {% endif %}" href="{% url 'admin_delete' %}">Delete Postings</a>
+                {% endif %}
+            </li>
+            <li class="nav-item">
+                <a  class="nav-link {% if active == 'watchlist' %} active {% endif %}" href="{% url 'watchlist' %}">Watchlist
+                    {% if count != 0 %}
+                        <span class="badge badge-secondary">{{ count }}</span>
+                    {% endif %}
+                </a>
+            </li>
+            <li class="nav-item">
+                <a  class="nav-link {% if active == 'winlist' %} active {% endif %}" href="{% url 'winlist' %}">Win List
+                    {% if count_win != 0 %}
+                        <span class="badge badge-danger">{{ count_win }}</span>
+                    {% endif %}
+                </a>
+            </li>
+            <li class="nav-item login_user"  >
+                {% if user.is_authenticated%}
+                      <a  class="nav-link {% if active == 'visible_decision' %} active {% endif %}" href=
+                        "{% url 'visible_decision' %}">My Postings</a>
+                 {% endif %}
+                
+            </li>
+            
+            <li class="nav-item" >
+                <a  class="nav-link" href="{% url 'logout' %}">Log Out</a>
+            </li>
+
+
+        {% else %}
+            <div class="ml-auto">
+            <li class="nav-item" >
+                <a  class="nav-link {% if active == 'login' %} active {% endif %}" href="{% url 'login' %}" style="text-align: left">Log In</a>
+            </li>
+<!--             <li class="nav-item">
+                <a class="nav-link {% if active == 'register' %} active {% endif %}"
+                   href="{% url 'register' %}" style="text-align: left">Registration</a>
+            </li> -->
+<!--             <li class="nav-item" style="padding-top: 10px;color: #fff" >
+               <strong > Not Signed In.</strong>
+            </li> -->
+
+            </div>
+        </div>
+
+
+
+        {% endif %}
+    </ul>
+    </div>
+    <div class="container">
+        {% if messages %}
+            {% for message in messages %}
+              <div class="alert alert-{{ message.tags }}">
+                {{ message }}
+              </div>
+            {% endfor %}
+          {% endif %}
+    {% block body %}
+    {% endblock %}
+    </div>
+</body>
+<script>
+/* When the user clicks on the button, 
+toggle between hiding and showing the dropdown content */
+function myFunction() {
+  document.getElementById("myDropdown").classList.toggle("show");
+}
+
+// Close the dropdown if the user clicks outside of it
+window.onclick = function(e) {
+  if (!e.target.matches('.dropbtn')) {
+  var myDropdown = document.getElementById("myDropdown");
+    if (myDropdown.classList.contains('show')) {
+      myDropdown.classList.remove('show');
+    }
+  }
+}
+</script>
+<script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+</html>

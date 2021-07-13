@@ -1,0 +1,196 @@
+body {
+font-family: "Times New Roman", Times, serif;
+font-size: 24px;
+}
+
+form {
+  text-align: center;
+}
+
+a {
+  text-decoration: none;
+  color:#e6f7ff;
+}
+
+.badge-primary {
+    color: #fff;
+    background-color: #00004d;
+}
+
+a:hover {
+  text-decoration: none;
+  
+}
+
+.title_page {
+  text-align: center;
+  margin-bottom: 35px;
+}
+
+.login_user {
+  text-align: right;
+  min-height: 50px;
+}
+
+.center_form {
+  margin: 0 auto;
+  text-align: center;
+}
+
+.list-group {
+  margin: 0 auto;
+}
+
+.card-header {
+  display: flex;
+  line-height: 1;
+  background-color:#b3e6ff;
+}
+.card-footer {
+  background-color:#b3e6ff;
+  border-top: 2px solid #004466;
+}
+.card-footer a{
+  color: #00004d;
+}
+
+.page-link {
+  color: #000;
+}
+
+.form-group {
+  text-align: center;
+  margin: 10px auto;
+}
+
+.foto_listing {
+  width: 500px;
+  display: block;
+  margin: 20px auto;
+}
+
+.listing_footer {
+  margin: 20px auto;
+  height: 50px;
+}
+
+.text_listing {
+  margin: 20px 0;
+  text-align: center;
+}
+
+.watchList {
+  text-align: right;
+}
+
+.number_bets {
+  margin: 5px auto;
+  text-align: center;
+}
+
+.bet {
+  margin: 5px 5px;
+}
+
+.btn_watchlist {
+  border: hidden;
+}
+
+.text_start_price {
+  text-align: left;
+}
+
+.text_bet {
+  text-align: center;
+}
+
+.text_max_price {
+  text-align: right;
+}
+
+.addComment {
+  margin: 5px auto;
+}
+
+.card_comment, .form_comment {
+  margin: 10px auto;
+  padding: 0;
+}
+
+.card_listing {
+  color: #000;
+}
+
+.ls_foto {
+  max-height: 200px;
+  display: block;
+  margin: 0 auto;
+}
+
+.card_img {
+  border-right: 1px solid rgba(0, 0, 0, 0.125);
+}
+
+/*# sourceMappingURL=styles.css.map */
+.nav-pills .nav-link.active, .nav-pills .show>.nav-link{
+  background-color: #004466 ;
+}
+
+.color-aqua{
+color:"#e6e6ff";
+}
+
+.nav-link:focus, .nav-link:hover{
+  color: #fff;
+
+}
+
+.logo{
+  color:  #004466;
+  margin-top: 20px;
+  text-shadow: 0 1px 0 #ccc,
+               0 2px 0 #c9c9c9,
+               0 3px 0 #bbb,
+               0 4px 0 #b9b9b9,
+               0 5px 0 #aaa,
+               0 6px 1px rgba(0,0,0,.1),
+               0 0 5px rgba(0,0,0,.1),
+               0 1px 3px rgba(0,0,0,.3),
+               0 3px 5px rgba(0,0,0,.2),
+               0 5px 10px rgba(0,0,0,.25),
+               0 10px 10px rgba(0,0,0,.2),
+               0 20px 20px rgba(0,0,0,.15);
+}
+
+
+.card {
+    border: 2px solid #00004d;
+    border-radius: .25rem;
+}
+
+.card_img {
+    border-right: 2px solid #00004d;
+}
+
+.mb-3, .my-3 {
+    margin-bottom: 2rem!important;
+}
+
+.badge-info {
+    color: #fff;
+    background-color: #00004d;
+}
+
+.page-item.active .page-link {
+    z-index: 3;
+    color: #fff;
+    background-color: #00004d;
+    border-color: #00004d;
+}
+
+
+/*
+Dark Color:#00004d ;
+Second Tone: #004466;
+
+*/

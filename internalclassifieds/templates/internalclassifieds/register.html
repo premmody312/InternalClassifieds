@@ -1,0 +1,68 @@
+{% extends "internalclassifieds/layout.html" %}
+
+{% block title %}
+    Register
+{% endblock %}
+
+{% block body %}
+
+    <style>
+        .btn {
+            width: 30%;
+        }
+
+        .card-login {
+            max-width: 40rem;
+        }
+    </style>
+    <h2 class="title_page logo" style="padding-top: 10px">Join Us Today</h2>
+
+    <div class="col-5 center_form">
+        {% if message %}
+            <div class="alert alert-danger" role="alert">
+                {{ message }}
+            </div>
+        {% endif %}
+
+        {% if message1 %}
+            <div class="alert alert-danger" role="alert">
+                {{ message1 }}
+            </div>
+        {% endif %}
+        {% if message2 %}
+            <div class="alert alert-danger" role="alert">
+                {{ message2 }}
+            </div>
+        {% endif %}
+
+        <div class="card card-login mx-auto mt-5 shadow p-3 mb-5 bg-white rounded" style="border: none;">
+            <div class="card-body">
+                <form action="{% url 'register' %}" method="post" style="padding-bottom: 20px">
+                    {% csrf_token %}
+                    <div class="form-group" style="padding-bottom: 6px;">
+                        <input class="form-control" autofocus type="text" name="username" placeholder="Username">
+                    </div>
+                    <div class="form-group" style="padding-bottom: 6px;">
+                        <input class="form-control" autofocus type="text" name="fname" placeholder="First Name">
+                    </div>
+                    <div class="form-group" style="padding-bottom: 6px;">
+                        <input class="form-control" autofocus type="text" name="lname" placeholder="Last Name">
+                    </div>
+                    <div class="form-group" style="padding-bottom: 6px;">
+                        <span class="glyphicon glyphicon-envelope"></span> 
+                        <input class="form-control" type="email" name="email" placeholder="Email Address">
+                    </div>
+                    <div class="form-group" style="padding-bottom: 6px;">
+                        <input class="form-control" type="password" name="password" placeholder="Password">
+                    </div>
+                    <div class="form-group" style="padding-bottom: 12px;">
+                        <input class="form-control" type="password" name="confirmation" placeholder="Confirm Password">
+                    </div>
+                    <input class="btn btn-primary" style="background-color: #00004d; color: #fff" type="submit" value="Register">
+                </form>
+                <h5>Already have an account? <a style="color: #00004d" href="{% url 'login' %}"><b><i>Login Now.</i></b></a></h5>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

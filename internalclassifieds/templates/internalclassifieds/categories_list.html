@@ -1,0 +1,13 @@
+{% extends "internalclassifieds/layout.html" %}
+
+{% block title %}
+    {{ title_cat }}
+{% endblock %}
+
+{% block body %}
+    <h2 class="title_page logo">{{ title_cat }}</h2>
+    {% for listing in page_objects.object_list %}
+        {% include "internalclassifieds/includes/card.html" %}
+    {% endfor %}
+    {% include "internalclassifieds/includes/pagination.html" %}
+{% endblock %}

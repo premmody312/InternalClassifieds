@@ -1,0 +1,43 @@
+{% extends "internalclassifieds/layout.html" %}
+
+{% block title %}
+    Login
+{% endblock %}
+
+{% block body %}
+
+    <style>
+        .btn {
+            width: 30%;
+        }
+
+        .card-login {
+            max-width: 25rem;
+        }
+    </style>
+    <h2 class="title_page logo" style="padding-top: 10px">Welcome Back</h2>
+    <div class="col-5 center_form " >
+        {% if message %}
+            <div class="alert alert-danger" role="alert">
+                {{ message }}
+            </div>
+        {% endif %}
+
+        <div class="card card-login mx-auto mt-5 shadow p-3 mb-5 bg-white rounded" style="border: none;">
+            <div class="card-body">
+            <form action="{% url 'login' %}" method="post" style="padding-bottom: 20px">
+                {% csrf_token %}
+                <div class="form-group" style="padding-bottom: 6px;">
+                    <input autofocus class="form-control" type="text" name="username" placeholder="Username">
+                </div>
+                <div class="form-group" style="padding-bottom: 12px;">
+                    <input class="form-control" type="password" name="password" placeholder="Password">
+                </div>
+                <input class="btn btn-primary" style="background-color: #00004d; color: #fff;" type="submit" value="Login">
+            </form>
+            <h5>Don't have an account? <a href="{% url 'register' %}" style="color: #00004d"><b><i>Register Now.</i></b></a></h5>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

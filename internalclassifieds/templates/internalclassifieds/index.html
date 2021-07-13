@@ -1,0 +1,11 @@
+{% extends "internalclassifieds/layout.html"%}
+
+
+{% block body %}
+    <h2 class="title_page logo" >Product Catalog</h2>
+    {% for listing in page_objects.object_list %}
+        {% include "internalclassifieds/includes/card.html" %}
+    {% endfor %}
+    {% include "internalclassifieds/includes/pagination.html" %}
+    {% include "internalclassifieds/includes/Chatbot.html" %}
+{% endblock %}

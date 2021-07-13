@@ -1,0 +1,46 @@
+{% extends "internalclassifieds/layout.html" %}
+
+{% block title %}
+    Create
+{% endblock %}
+
+{% block body %}
+    <h2 class="title_page logo">Create Posting</h2>
+    {% if message %}
+        <div class="alert alert-danger" role="alert">
+            {{ message }}
+        </div>
+    {% endif %}
+    <form action="{% url 'create' %}" method="post">
+        {% csrf_token %}
+        <div class="form-row">
+            <div class="form-group col-md-8">
+                {{ form.title }}
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-8">
+                {{ form.text }}
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-4" style="margin: 10px 0 10px auto;">
+                {{ form.price }}
+            </div>
+            <div class="form-group col-md-4" style="margin: 10px auto 10px 0;">
+                {{ form.url }}
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-8">
+                {{ form.category }}
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-8" >
+               <p style="font-size: 20px">Do you want to disable comments on your post : {{ form.is_comment_disabled }}</p>
+            </div>
+        </div>
+        <button class="btn btn-primary" type="submit" style="background-color: #00004d; color: #fff">Submit Form</button>
+    </form>
+{% endblock %}

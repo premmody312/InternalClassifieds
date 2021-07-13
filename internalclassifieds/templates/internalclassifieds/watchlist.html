@@ -1,0 +1,17 @@
+{% extends "internalclassifieds/layout.html" %}
+
+{% block title %}
+    Watchlist
+{% endblock %}
+
+{% block body %}
+    <h2 class="title_page logo">Bookmarks</h2>
+    {% for list in page_objects.object_list %}
+
+        {% with listing=list.id_listing %}
+<!--         <h2>listing {{listing}}</h2>
+ -->            {% include "internalclassifieds/includes/card.html" %}
+        {% endwith %}
+    {% endfor %}
+    {% include "internalclassifieds/includes/pagination.html" %}
+{% endblock %}

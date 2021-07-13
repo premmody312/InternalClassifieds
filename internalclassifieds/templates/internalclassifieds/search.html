@@ -1,0 +1,38 @@
+{% extends "internalclassifieds/layout.html" %}
+
+{% block title %}
+    Search Results
+{% endblock %}
+
+{% block body %}
+    <h2 class="title_page logo">Search Results</h2>
+    {% if count < 1 %}
+    <div class="alert alert-warning">
+    	<b>No search results</b><br>
+    	Your search query :	 did not match any documents. <br><br>
+    Suggestions:
+    <ul>
+    <li>Make sure that all words are spelled correctly.</li>
+    <li>Try more general keywords.</li>
+    <li> Try fewer keywords.</li>
+    <li> Try different keywords.</li>
+    </ul>
+    </div>
+   
+    
+
+    {% endif %}
+
+
+
+
+
+    {% for list in page_objects.object_list %}
+<!--     	<h2>list.id {{list.id}}</h2>
+ -->        {% with listing=list %}
+<!--         	<h2>listing {{listing}}</h2>
+ -->            {% include "internalclassifieds/includes/cardSearch.html" %}
+        {% endwith %}
+    {% endfor %}
+    {% include "internalclassifieds/includes/pagination.html" %}
+{% endblock %}

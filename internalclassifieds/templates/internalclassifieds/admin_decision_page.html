@@ -1,0 +1,17 @@
+{% extends "internalclassifieds/layout.html" %}
+
+{% block title %}
+    Admin Decisions
+{% endblock %}
+
+{% block body %}
+    <h2 class="title_page logo">Admin Verification</h2>
+    {% for list in page_objects.object_list %}
+<!--     	<h2>list.id {{list.id}}</h2>
+ -->        {% with listing=list %}
+<!--         	<h2>listing {{listing}}</h2>
+ -->            {% include "internalclassifieds/includes/cardAdmin.html" %}
+        {% endwith %}
+    {% endfor %}
+    {% include "internalclassifieds/includes/pagination.html" %}
+{% endblock %}

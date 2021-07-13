@@ -1,0 +1,144 @@
+<head>
+	<style type="text/css">
+	.chat_icon{
+		position: fixed;
+		bottom: 0;
+		right: 30px;
+		z-index: 1000;
+		padding: 0;
+		font-size: 50px;
+		color: #004466;
+		cursor: pointer;
+	}
+	.chat_box{
+		width: 400px;
+		height: 80vh;
+		position: fixed;
+		bottom: 70px;
+		right: 30px;
+		background: #dedede;
+		z-index: 1000;
+		transition: all 0.3s ease-out;
+		transform: scaleY(0);
+		border-radius: 25px;
+	}
+	.chat_box.active{
+		transform: scaleY(1);
+	}
+	#messages{
+		padding: 20px;
+	}
+	.my-conv-form-wrapper textarea{
+		height: 30px;
+		overflow: hidden;
+		resize: none;
+	}
+	.hidden{
+		display: none !important;
+	}
+	</style>
+
+	<link rel="stylesheet" type="text/css" href="static/internalclassifieds/css/jquery.convform.css">
+	<script type="text/javascript" src="static/internalclassifieds/js/jquery-3.1.1.min.js"></script>
+	<script type="text/javascript" src="static/internalclassifieds/js/jquery.convform.js"></script>
+	<script type="text/javascript" src="static/internalclassifieds/js/custom.js"></script>
+
+</head>
+
+<div class="chat_icon">
+	<i class="fa fa-comments" aria-hidden="true"></i>
+</div>
+
+<div class="chat_box">
+	<div class="my-conv-form-wrapper">
+		<form method="GET" class="hidden">
+			<input type="text" name="name" data-conv-question="Hey, What can I call you?">
+	        <input type="text" data-conv-question="Hi {name}, <br> It's a pleasure to meet you." data-no-answer="true">
+		    <select data-conv-question="How can I help you? Please choose a Category." name="category">
+		    	<option value="BuyerFAQ">Buyer FAQs</option>
+		        <option value="SellerFAQ">Seller FAQs</option>
+		        <option value="GenFAQ">General FAQs</option>
+		    </select>
+
+      <div data-conv-fork="category">
+        <div data-conv-case="BuyerFAQ">
+          	<select data-conv-question="What can I help you with?" name="BuyerFAQ">
+		    	<option value="Prod_Verify">Product Verification</option>
+		        <option value="Search_Product">Search Product</option>
+		        <option value="Pay_Seller">Payments</option>
+		    </select>
+        </div>
+        <div data-conv-case="SellerFAQ">
+          	<select data-conv-question="What can I help you with?" name="SellerFAQ">
+		    	<option value="Max_Reach">Max Reach</option>
+		        <option value="Show_Hide">Show/Hide Postings</option>
+		        <option value="Post_Approval">Post Approvals</option>
+		    </select> 
+        </div>
+        <div data-conv-case="GenFAQ">
+          	<select data-conv-question="What can I help you with?" name="GenFAQ">
+		        <option value="Item_Denied">Prohibited Products</option>
+		        <option value="Delete_Prod">Delete your Product</option>
+		    </select>
+        </div>
+      </div>
+
+      <div data-conv-fork="BuyerFAQ">
+        <div data-conv-case="Prod_Verify">
+          	<input type="text" data-conv-question="All the products uploaded to the website are verified by the Website Administrator. After careful inspection of each product's compliance with the website's terms and conditions, the products are available for quotations and purchase." data-no-answer="true">
+        </div>
+        <div data-conv-case="Search_Product">
+          	<input type="text" data-conv-question="Eyeing your favourite item? <br> We provides you with 2 super simple options to find item of your choice.<br>
+    		<ul>
+    			<li>Search bar: Finding by item name</li>
+    			<li>Category search: Finding via relevant category</li>
+    		</ul>" data-no-answer="true">
+        </div>
+        <div data-conv-case="Pay_Seller">
+          	<input type="text" data-conv-question="We would strongly recommend not to pay in advance. If you must pay something to have the seller hold the product for you, ensure it is a small & insignificant amount.<br>
+          	Advance payment is the most common technique adopted by fraud sellers to trick buyers and pursue them to make upfront payments for goods, services, etc." data-no-answer="true">
+        </div>
+      </div>
+
+      <div data-conv-fork="SellerFAQ">
+        <div data-conv-case="Max_Reach">
+          	<input type="text" data-conv-question="To get good responses for your Ad, please ensure the below: <br>
+          	<ul>
+          		<li> A comprehensive description: Mention the relevant details such as title/description and ensure to provide complete information such as item specification, size, shape, colour, design, etc. </li>
+          		<li> Clear resolution photograph(s): Always upload a clear image showing the item properly. Please ensure that the image is original and reflects the item as described. Do not include any stock or human image. </li>
+          		<li> Competitive pricing: Please ensure to keep realistic pricing for your Ad. It should reflect the market value of the item and correspond to actual item condition. </li>
+          		<li> Appropriate category: Ensure to post the Ad in relevant category. E.g. post mobile phone in mobiles and not electronics. </li>
+          	</ul>" data-no-answer="true">
+        </div>
+        <div data-conv-case="Show_Hide">
+          	<input type="text" data-conv-question="You may visit 'My Postings' section under 'My Account' to either show or hide your posting from internal classifieds." data-no-answer="true">
+        </div>
+        <div data-conv-case="Post_Approval">
+          	<input type="text" data-conv-question=" All the products uploaded to the website are verified by the Website Administrator. After careful inspection of each product's complaince with the website's terms and conditions, the products are available for quotations." data-no-answer="true">
+        </div>
+      </div>
+
+      <div data-conv-fork="GenFAQ">
+        <div data-conv-case="Item_Denied">
+          	<input type="text" data-conv-question="Your products may be considered prohibited under circumstances where they don't follow the guidelines and standards of online selling set by the Governing bodies. Some of them may include:
+          	<ul>
+          		<li> Adult/Sexually Oriented/Pornographic Material or Child pornographic material. </li>
+          		<li> Alcohol, E-cigarette, and Tobacco Products. </li>
+          		<li> Any animal under the pets category as defined under the prevention of cruelty to animals (Pet Shop) Rules, 2018 or any other kind of live animal. </li>
+          		<li> Offensive goods, the crime that includes crime scene photos or items, such as personal belongings, associated with criminals. </li>
+          		<li> Software & movie piracy, software to unlock phones/video games or Stocks, and Other Securities.</li>
+          	</ul>" data-no-answer="true">
+        </div>
+        <div data-conv-case="Delete_Prod">
+          	<input type="text" data-conv-question="You can mail the website administrator at internalclassifiedstiaa@gmail.com for deletion of your posting from internal classifieds." data-no-answer="true">
+        </div>
+      </div>
+
+      <input type="text" data-conv-question="For any further assistance needed, <br> 
+      Contact the Website Administrator at our email: <br>internalclassifiedstiaa@gmail.com" data-no-answer="true">
+      <select data-conv-question="Exit?">
+        <option value="Yes">Exit</option>
+      </select>
+  	</form>
+	</div>
+</div>

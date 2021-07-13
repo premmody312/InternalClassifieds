@@ -1,0 +1,20 @@
+{% extends "internalclassifieds/layout.html" %}
+
+{% block title %}
+    Categories
+{% endblock %}
+
+{% block body %}
+    <h2 class="title_page logo">Categories</h2>
+    {% for listing in page_objects.object_list %}
+        <ul class="list-group mb-2 col-6" >
+            <a href="{% url 'categories' title_cat=listing.cat %}" style="color: #00004d">
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    {{ listing.cat }}
+                    <span class="badge badge-primary badge-pill">{{ openWatch|get_item:listing.cat }}</span>
+                </li>
+            </a>
+        </ul>
+    {% endfor %}
+    {% include "internalclassifieds/includes/pagination.html" %}
+{% endblock %}
