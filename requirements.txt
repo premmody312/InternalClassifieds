@@ -12,6 +12,6 @@ regex==2021.7.6
 sqlparse==0.4.1
 textblob==0.15.3
 tqdm==4.61.2
-typing-extension==3.10.0.0
+typing-extension==3.10.0
 whitenoise==5.2.0
 wincertstore==0.2
